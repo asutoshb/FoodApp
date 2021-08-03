@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+
+
+    
+
+</body>
+
+</html>
+
+<script type="module">
+
+    import myNavbar from './components/navbar.js';
+
+    document.body.innerHTML = myNavbar();
+
+
+
+    let food_div = document.getElementById("data");
+    
+
+    
+    
+     var timerId;
+        
+    query.addEventListener("input", throttleFunction)
+
+        function throttleFunction() {
+
+            if (timerId) {
+                return false;
+            }
+
+            timerId = setTimeout(() => {
+                main();
+                timerId = undefined;
+            }, 2000);
+
+
+
+        }
+
+        async function main() {
+
+            let food = await searchfood();
+
+            console.log('food:', food)
+            appendfood(food);
+
+        }
+
+    
+          function appendfood(d) {
+
+                
+
+                d.forEach(({ strMeal, strMealThumb }) => {
+
+                    let div1 = document.createElement('div');
+                    let p1 = document.createElement('p');
+                    let img1 = document.createElement('img');
+
+                    img1.src = strMealThumb;
+                    p1.innerText = strMeal;
+
+                    div1.append(img1, p1);
+                    food_div.append(div1);
+
+                });
+
+            }
+
+
+
+
+        async function searchfood() {
+
+            let query = document.getElementById("query").value;
+
+            console.log('query:', query)
+
+
+            let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
+
+            let data = await res.json();
+
+            console.log(data);
+
+            let {meals} = data;
+
+            return meals;     
+
+        }
+   
+
+</script>
+
+
